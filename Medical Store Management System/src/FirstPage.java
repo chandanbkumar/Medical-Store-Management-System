@@ -80,58 +80,61 @@ public class FirstPage {
 		frame.getContentPane().add(uar_panel);
 		uar_panel.setLayout(new GridLayout(1, 3, 0, 0));
 		
-		JLabel label = new JLabel("");
-		label.addMouseListener(new MouseAdapter() {
+		JLabel label_admin = new JLabel("");
+		label_admin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				
+				Login login = new Login();
+				login.setVisible(true);
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				label.setIcon(new ImageIcon(FirstPage.class.getResource("/images/adminloginhover.png")));
+				label_admin.setIcon(new ImageIcon(FirstPage.class.getResource("/images/adminloginhover.png")));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				label.setIcon(new ImageIcon(FirstPage.class.getResource("/images/adminlogin.png")));
+				label_admin.setIcon(new ImageIcon(FirstPage.class.getResource("/images/adminlogin.png")));
 			}
 		});
-		label.setIcon(new ImageIcon(FirstPage.class.getResource("/images/adminlogin.png")));
-		uar_panel.add(label);
+		label_admin.setIcon(new ImageIcon(FirstPage.class.getResource("/images/adminlogin.png")));
+		uar_panel.add(label_admin);
 		
-		JLabel label_1 = new JLabel("");
-		label_1.addMouseListener(new MouseAdapter() {
+		JLabel label_user = new JLabel("");
+		label_user.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				label_1.setIcon(new ImageIcon(FirstPage.class.getResource("/images/userloginhover.png")));
+				label_user.setIcon(new ImageIcon(FirstPage.class.getResource("/images/userloginhover.png")));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				label_1.setIcon(new ImageIcon(FirstPage.class.getResource("/images/userlogin.png")));
+				label_user.setIcon(new ImageIcon(FirstPage.class.getResource("/images/userlogin.png")));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				Login login = new Login();
+				login.setVisible(true);
+			}
+		});
+		label_user.setIcon(new ImageIcon(FirstPage.class.getResource("/images/userlogin.png")));
+		uar_panel.add(label_user);
+		
+		JLabel label_register = new JLabel("");
+		label_register.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				label_register.setIcon(new ImageIcon(FirstPage.class.getResource("/images/registerhover.png")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				label_register.setIcon(new ImageIcon(FirstPage.class.getResource("/images/register.png")));
 			}
 			@Override
 			public void mouseReleased(MouseEvent e) {
 			}
 		});
-		label_1.setIcon(new ImageIcon(FirstPage.class.getResource("/images/userlogin.png")));
-		uar_panel.add(label_1);
-		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				lblNewLabel.setIcon(new ImageIcon(FirstPage.class.getResource("/images/registerhover.png")));
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				lblNewLabel.setIcon(new ImageIcon(FirstPage.class.getResource("/images/register.png")));
-			}
-			@Override
-			public void mouseReleased(MouseEvent e) {
-			}
-		});
-		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setIcon(new ImageIcon(FirstPage.class.getResource("/images/register.png")));
-		uar_panel.add(lblNewLabel);
+		label_register.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_register.setIcon(new ImageIcon(FirstPage.class.getResource("/images/register.png")));
+		uar_panel.add(label_register);
 		frame.getContentPane().add(b_panel);
 		
 		JButton about_btn = new JButton("ABOUT");
