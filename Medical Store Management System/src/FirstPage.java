@@ -122,23 +122,26 @@ public class FirstPage {
 		label_register.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				label_register.setIcon(new ImageIcon(FirstPage.class.getResource("/images/registerhover.png")));
+				label_register.setIcon(new ImageIcon(FirstPage.class.getResource("/images/regusershover.png")));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				label_register.setIcon(new ImageIcon(FirstPage.class.getResource("/images/register.png")));
+				label_register.setIcon(new ImageIcon(FirstPage.class.getResource("/images/regusers.png")));
 			}
 			@Override
-			public void mouseReleased(MouseEvent e) {
+			public void mouseReleased(MouseEvent e)  {
+				RegistrationForm r = new RegistrationForm();
+				r.setVisible(true);
 			}
 		});
-		label_register.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_register.setIcon(new ImageIcon(FirstPage.class.getResource("/images/register.png")));
+		label_register.setHorizontalAlignment(SwingConstants.LEFT);
+		label_register.setIcon(new ImageIcon(FirstPage.class.getResource("/images/regusers.png")));
 		uar_panel.add(label_register);
 		frame.getContentPane().add(b_panel);
 		
 		JButton about_btn = new JButton("ABOUT");
-		about_btn.setFont(new Font("Sylfaen", Font.PLAIN, 45));
+		about_btn.setVerticalAlignment(SwingConstants.BOTTOM);
+		about_btn.setFont(new Font("Sitka Subheading", Font.PLAIN, 45));
 		about_btn.setBackground(new Color(65, 105, 225));
 		about_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
