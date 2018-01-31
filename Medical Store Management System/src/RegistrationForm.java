@@ -24,13 +24,14 @@ import javax.swing.UIManager;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
 public class RegistrationForm extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField userid_textField;
 	private JTextField name_textField;
 	private JTextField age_textField;
 	private JTextField email_textField;
@@ -43,7 +44,11 @@ public class RegistrationForm extends JFrame {
 	private JTextField country_textField;
 	private JRadioButton male_rdbtn;
 	private ButtonGroup b;
-	private JRadioButton female_rdbtn;String uid;
+	private JRadioButton female_rdbtn;
+	String uid;
+	static RegistrationForm frame;
+	JLabel id_label; String edit_id;
+	JButton register_btn;
 
 	/**
 	 * Launch the application.
@@ -52,13 +57,22 @@ public class RegistrationForm extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					RegistrationForm frame = new RegistrationForm();
+					frame = new RegistrationForm();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+	}
+	
+	
+	public RegistrationForm(String u_id){
+		System.out.println("edit id is"+u_id);
+		edit_id=u_id;
+		RegistrationForm r = (new RegistrationForm());
+		r.setVisible(true);
+		r.editProfile(u_id);
 	}
 	
 	
@@ -73,20 +87,19 @@ public class RegistrationForm extends JFrame {
 		//contentPane.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Register Here", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("", "[][][][][][][][][][][][][]", "[][][][][][][][][][][][][][][][]"));
-		contentPane.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Welcome To CKompany", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		contentPane.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Registration Form", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
 		ConnectionToDB c = new ConnectionToDB();
-		uid =c.createNewUserId();
+		uid =c.createNewUserId(1);
 		
 		JLabel userid_label = new JLabel("User Id:");
 		contentPane.add(userid_label, "cell 0 1,alignx trailing");
 		
-		userid_textField = new JTextField();
-		userid_textField.setEnabled(false);
-		userid_textField.setEditable(false);
-		userid_textField.setText(uid);
-		contentPane.add(userid_textField, "cell 1 1 8 1,growx");
-		userid_textField.setColumns(10);
+		 id_label = new JLabel("");
+		id_label.setFont(new Font("Sitka Subheading", Font.PLAIN, 22));
+		id_label.setHorizontalTextPosition(SwingConstants.CENTER);
+		id_label.setHorizontalAlignment(SwingConstants.CENTER);
+		contentPane.add(id_label, "cell 1 1 7 1");
 		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(RegistrationForm.class.getResource("/images/Userreg.png")));
@@ -133,7 +146,7 @@ public class RegistrationForm extends JFrame {
 		JLabel phoneno_label = new JLabel("Phone No.:");
 		contentPane.add(phoneno_label, "cell 0 8,alignx trailing");
 		
-		phoneno_textField = new JTextField();
+		phoneno_textField = new JTextField(10);
 		contentPane.add(phoneno_textField, "cell 1 8 8 1,growx");
 		phoneno_textField.setColumns(10);
 		
@@ -178,16 +191,23 @@ public class RegistrationForm extends JFrame {
 		contentPane.add(repeatpassword_textField, "cell 1 14 8 1,growx");
 		
 		
-		
-		JButton register_btn = new JButton("Register");contentPane.add(register_btn, "cell 2 15");
+		System.out.println("id vreate"+uid);
+		id_label.setText(uid);
+		register_btn = new JButton("Register");contentPane.add(register_btn, "cell 2 15");
 		register_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try{
-					InsertToDB(e);
+				if(register_btn.getText().equals("Register")){
+					try{
+						InsertToDB(e);
+						//frame.dispose();
+					}
+					catch (Exception i) {
+						System.out.println(i.getMessage()+"\n"+"");
+						i.printStackTrace();
+					}
 				}
-				catch (Exception i) {
-					System.out.println(i.getMessage()+"\n"+"");
-					i.printStackTrace();
+				else{
+					updateToDB();
 				}
 			}
 		});
@@ -245,29 +265,29 @@ public class RegistrationForm extends JFrame {
 			
 			if(uid==null) 
 				JOptionPane.showMessageDialog(null, "uid null de raha hai");
-			else 
-				userid_textField.setText(uid);
+			else {
+				
+			}
 			
 			
 			if(upassword.equals(urepeatpassword))
 			{
 				System.out.println("p="+upassword+"rp="+urepeatpassword);
-				//JOptionPane.showMessageDialog(null, "password na hua matcch");
 				boolean checkConnection = c.makeConnection();
-				
+				String query = "insert into users values(?,?,?,?,?,?,?,?,?,?,?)";
 				if(checkConnection)
 				{
-					JOptionPane.showMessageDialog(null, "connection holiya");
-					int i = c.insertToUsers(uid, uname, uage, usex,uemail, uphone, uaddress, ucity, ustate, ucountry, upassword);
+					int i = c.insertToUsers(query,uid, uname, uage, usex,uemail, uphone, uaddress, ucity, ustate, ucountry, upassword);
+					c.closeConnection();
 					
-					if(i!=999) 
+					if(i==1) 
 						JOptionPane.showMessageDialog(null, "Registered Successfully");
 					else	   
 						JOptionPane.showMessageDialog(null, "Problem while Registering");
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(null, "checkConnection false ho gaya");
+					JOptionPane.showMessageDialog(null, "Error Connecting to Database");
 				}
 			}
 			
@@ -278,4 +298,67 @@ public class RegistrationForm extends JFrame {
 		
 
 
+	public void editProfile(String edit_id){
+		this.edit_id=edit_id;
+		id_label.setText(edit_id);
+		String query = "Select * from users where u_id ='"+edit_id+"'";
+		ConnectionToDB c = new ConnectionToDB();
+		c.makeConnection();
+		ResultSet resultSet = c.queryExecution(query);
+		try {
+			resultSet.next();
+			name_textField.setText(resultSet.getString("uname"));
+			age_textField.setText(resultSet.getInt("uage")+"");
+			String sex = resultSet.getString("ugender");
+			if(sex.equals("M")) male_rdbtn.setSelected(true);else female_rdbtn.setSelected(true);
+			phoneno_textField.setText(resultSet.getString("uphone"));
+			email_textField.setText(resultSet.getString("uemail"));
+			state_textField.setText(resultSet.getString("ustate"));
+			address_textField.setText(resultSet.getString("uaddress"));
+			country_textField.setText(resultSet.getString("ucountry"));
+			city_textField.setText(resultSet.getString("ucity"));
+			password_textField.setText(resultSet.getString("upassword"));
+			register_btn.setText("UPDATE");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		c.closeConnection();
+	}
+	
+	public void updateToDB(){
+		String query = "update users set u_id=?,uname=?,uage=?,ugender=?,uemail=?,uphone=?,uaddress=?,ucity=?,ustate=?,ucountry=?,upassword=? where u_id='"+edit_id+"'";
+		String uname=name_textField.getText();
+		String usex;
+		int uage=Integer.parseInt(age_textField.getText());
+		
+		if(male_rdbtn.isSelected())
+			usex="M";
+		else
+			usex="F";
+		
+		String uemail = email_textField.getText();
+		String uphone =  phoneno_textField.getText();
+		String uaddress = address_textField.getText();
+		String ucity = city_textField.getText();
+		String ustate = state_textField.getText();
+		String ucountry = country_textField.getText();
+		String upassword = password_textField.getText();
+		String urepeatpassword =repeatpassword_textField.getText();
+		ConnectionToDB c = new ConnectionToDB();
+		int i=0;
+		c.makeConnection();
+		if(upassword.equals(urepeatpassword))
+			i = c.insertToUsers(query, edit_id, uname, uage, usex, uemail, uphone, uaddress, ucity, ustate, ucountry, upassword);
+		else
+			JOptionPane.showMessageDialog(null, "Password do not match");
+		if(i==1) 
+			JOptionPane.showMessageDialog(null, "Updated Successfully");
+		else	   
+			JOptionPane.showMessageDialog(null, "Problem while Updating");
+		c.closeConnection();
+		
+	}
 }
+
