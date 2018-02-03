@@ -25,18 +25,27 @@ import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import java.awt.Color;
 import javax.swing.SwingConstants;
+import java.awt.Toolkit;
+import java.awt.Window.Type;
 
 public class Login extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField name_textField;
 	private JPasswordField password_textField;
-	private JLabel bgimg;
 	private ImageIcon ic;
+	int  flag;
+	Login lo;
+	private JPanel panel;
+	private JPanel panel_1;
+	private JLabel lblNewLabel;
+	private JLabel lblA;
+	private JLabel lblA_1;
+	private JLabel label;;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -47,81 +56,108 @@ public class Login extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
 	 */
+	
+	public Login(int i){
+		
+		Login l = new Login();
+		l.flag=i;
+		l.lo=l;
+		l.setVisible(true);
+	}
+	
+	
 	public Login() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/images/logic.png")));
+		setTitle("Login");
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 466, 340);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(350, 150, 571, 446);
 		contentPane = new JPanel();
-		bgimg = new JLabel();
-		
-		bgimg.setLocation(0, 0);
-		bgimg.setSize(460,311);
-		
-		
-		
-		contentPane.setBorder(BorderFactory.createTitledBorder("Welcome To Store Management"));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		bgimg.setIcon(new ImageIcon(Login.class.getResource("/images/mdcn.png")));
 		
-		JLabel lblLoginToStore = new JLabel("Login To Store");
-		lblLoginToStore.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLoginToStore.setForeground(new Color(204, 0, 0));
-		lblLoginToStore.setBounds(46, 40, 334, 47);
-		lblLoginToStore.setFont(new Font("Mongolian Baiti", Font.BOLD | Font.ITALIC, 45));
-		contentPane.add(lblLoginToStore);
+		panel = new JPanel();
+		panel.setBounds(0, 0, 565, 417);
+		contentPane.add(panel);
+		panel.setLayout(null);
 		
-		JLabel lblName = new JLabel("User Id:");
-		lblName.setBounds(75, 126, 99, 28);
-		lblName.setFont(new Font("Mongolian Baiti", Font.BOLD, 23));
-		contentPane.add(lblName);
+		panel_1 = new JPanel();
+		panel_1.setBackground(new Color(1, 46, 83));
+		panel_1.setBounds(78, 154, 411, 228);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
 		
 		
 		name_textField = new JTextField();
-		name_textField.setBounds(184, 133, 237, 20);
+		name_textField.setForeground(Color.BLACK);
+		name_textField.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
+		name_textField.setBounds(67, 78, 293, 35);
+		panel_1.add(name_textField);
 		name_textField.setColumns(10);
-		contentPane.add(name_textField);	
-		
-		JLabel lblPassword = new JLabel("Password:");
-		lblPassword.setBounds(75, 175, 105, 28);
-		lblPassword.setFont(new Font("Mongolian Baiti", Font.BOLD, 23));
-		contentPane.add(lblPassword);
+		//name_textField.setText("ID");
 		
 		password_textField = new JPasswordField();
-		password_textField.setBounds(184, 182, 237, 20);
-		contentPane.add(password_textField);
+		password_textField.setForeground(Color.GRAY);
+		password_textField.setEchoChar('*');
+		password_textField.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
+		password_textField.setBounds(67, 124, 293, 35);
+		panel_1.add(password_textField);
+		//password_textField.setText("Password");
+		
+		JLabel lblLoginToStore = new JLabel("Login");
+		lblLoginToStore.setBounds(21, 11, 147, 47);
+		panel_1.add(lblLoginToStore);
+		lblLoginToStore.setForeground(Color.WHITE);
+		lblLoginToStore.setFont(new Font("Mongolian Baiti", Font.BOLD, 39));
+		
+		lblA = new JLabel("");
+		lblA.setIcon(new ImageIcon(Login.class.getResource("/images/uiicon.png")));
+		lblA.setBounds(21, 78, 35, 35);
+		panel_1.add(lblA);
+		
+		lblA_1 = new JLabel("");
+		lblA_1.setIcon(new ImageIcon(Login.class.getResource("/images/passicon.png")));
+		lblA_1.setBounds(21, 124, 35, 35);
+		panel_1.add(lblA_1);
 		
 		
 		
 		JButton signinbtn = new JButton("SIGN IN");
-		signinbtn.setBounds(184, 224, 93, 33);
-		contentPane.add(signinbtn);
-		contentPane.add(bgimg);
+		signinbtn.setForeground(Color.WHITE);
+		signinbtn.setFont(new Font("Mongolian Baiti", Font.PLAIN, 20));
+		signinbtn.setBackground(new Color(16, 95, 159));
+		signinbtn.setBounds(133, 179, 108, 38);
+		panel_1.add(signinbtn);
 		signinbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				authenticate();
+				System.out.println("user is "+flag);
+				if(name_textField.getText().isEmpty()||password_textField.getText().isEmpty())
+					JOptionPane.showMessageDialog(null, "Please Enter UserId/Password");
+				else
+					authenticate(flag);
 			}
 		});
-
 		
+		label = new JLabel("");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setIcon(new ImageIcon(Login.class.getResource("/images/logo.png")));
+		label.setBounds(186, 0, 151, 150);
+		panel.add(label);
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/images/loginbg.png")));
+		lblNewLabel.setBounds(0, 0, 565, 417);
+		panel.add(lblNewLabel);
 	}
 	
-	public void authenticate(){
+	public void authenticate(int flag){
+		
+		if(flag==1){
 		ConnectionToDB ct = new ConnectionToDB();
 		ct.makeConnection();
 		String s = String.format("Select upassword,uname,u_id from users where u_id = '%s'", name_textField.getText());
@@ -131,21 +167,36 @@ public class Login extends JFrame {
 		System.out.println(rs);
 		
 		try {
-			rs.next();
+			if(rs.next()){
 			if(rs.getString("upassword").equals(password_textField.getText())){
+				lo.dispose();
 				UserPage u = new UserPage();
+				u.setUserPageReference(u);
 				u.setVisible(true);
 				u.showname(rs.getString("uname"),rs.getString("u_id"));
 			}
 			else{
 				JOptionPane.showMessageDialog(null, "Invalid password");
 			}
+			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, "Invalid user id");
 			e.printStackTrace();
 		}
 		
+		}
+		
+		else if(flag==2){
+			String admin_id = "ad1001";
+			String admin_password = "admin";
+			if(name_textField.getText().equals(admin_id) && password_textField.getText().equals(admin_password)){
+				lo.dispose();
+				AdminPage adminPage = new AdminPage();
+				adminPage.setVisible(true);
+			}
+			else{
+				JOptionPane.showMessageDialog(null, "Invalid Credentials");
+			}
+		}
 	}
-
 }

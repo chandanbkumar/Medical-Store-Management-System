@@ -28,6 +28,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 public class RegistrationForm extends JFrame {
 
@@ -46,14 +47,14 @@ public class RegistrationForm extends JFrame {
 	private ButtonGroup b;
 	private JRadioButton female_rdbtn;
 	String uid;
-	static RegistrationForm frame;
+	RegistrationForm rf;
 	JLabel id_label; String edit_id;
 	JButton register_btn;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -65,7 +66,7 @@ public class RegistrationForm extends JFrame {
 			}
 		});
 	}
-	
+	*/
 	
 	public RegistrationForm(String u_id){
 		System.out.println("edit id is"+u_id);
@@ -80,120 +81,194 @@ public class RegistrationForm extends JFrame {
 	 * Create the frame.
 	 */
 	public RegistrationForm() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 618, 529);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistrationForm.class.getResource("/images/regic.png")));
+		setResizable(false);
+		setTitle("Registration");
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(150, 50, 632, 674);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(102, 102, 153));
 		contentPane.setForeground(new Color(0, 0, 51));
 		//contentPane.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Register Here", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("", "[][][][][][][][][][][][][]", "[][][][][][][][][][][][][][][][]"));
-		contentPane.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Registration Form", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		
+		contentPane.setLayout(null);
+		
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(1, 46, 83));
+		panel.setOpaque(true);
+		panel.setBounds(20, 21, 571, 592);
+		contentPane.add(panel);
+		
+		JLabel l = new JLabel();
+		//contentPane.add(l);
+		
+		panel.setLayout(new MigLayout("", "[][][][][][][][][][][][][]", "[][][][][][][][][][][][][][][][][]"));
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Registration Form", TitledBorder.LEADING, TitledBorder.TOP, null, Color.WHITE));
 		
 		ConnectionToDB c = new ConnectionToDB();
 		uid =c.createNewUserId(1);
 		
 		JLabel userid_label = new JLabel("User Id:");
-		contentPane.add(userid_label, "cell 0 1,alignx trailing");
+		userid_label.setForeground(new Color(0, 204, 204));
+		userid_label.setFont(new Font("Mongolian Baiti", Font.BOLD, 20));
+		panel.add(userid_label, "cell 0 1,alignx trailing");
 		
 		 id_label = new JLabel("");
-		id_label.setFont(new Font("Sitka Subheading", Font.PLAIN, 22));
+		 id_label.setForeground(new Color(204, 255, 255));
+		id_label.setFont(new Font("Mongolian Baiti", Font.BOLD, 22));
 		id_label.setHorizontalTextPosition(SwingConstants.CENTER);
 		id_label.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(id_label, "cell 1 1 7 1");
+		panel.add(id_label, "cell 1 1 7 1");
 		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(RegistrationForm.class.getResource("/images/Userreg.png")));
-		contentPane.add(label, "cell 9 1 2 3");
+		panel.add(label, "cell 9 1 2 3");
 		
 		JLabel lblNewLabel = new JLabel("Personal Information");
+		lblNewLabel.setForeground(Color.LIGHT_GRAY);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tempus Sans ITC", Font.BOLD, 22));
-		contentPane.add(lblNewLabel, "cell 0 3 5 1");
+		lblNewLabel.setFont(new Font("Colonna MT", Font.BOLD, 34));
+		panel.add(lblNewLabel, "cell 0 3 5 1");
 		
 		JLabel name_label = new JLabel("Name: ");
-		contentPane.add(name_label, "cell 0 4,alignx trailing");
+		name_label.setForeground(Color.WHITE);
+		name_label.setFont(new Font("Mongolian Baiti", Font.BOLD, 17));
+		panel.add(name_label, "cell 0 4,alignx trailing");
 		
 		name_textField = new JTextField();
-		contentPane.add(name_textField, "cell 1 4 8 1,growx,aligny center");
+		name_textField.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
+		name_textField.setBackground(new Color(240, 248, 255));
+		panel.add(name_textField, "cell 1 4 9 1,growx,aligny center");
 		name_textField.setColumns(10);
+
 		
 		JLabel age_label = new JLabel("Age:");
-		contentPane.add(age_label, "cell 0 5,alignx trailing");
+		age_label.setForeground(Color.WHITE);
+		age_label.setFont(new Font("Mongolian Baiti", Font.BOLD, 17));
+		panel.add(age_label, "cell 0 5,alignx trailing");
 		
 		age_textField = new JTextField();
-		contentPane.add(age_textField, "cell 1 5,growx");
+		age_textField.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
+		age_textField.setBackground(new Color(240, 248, 255));
+		panel.add(age_textField, "cell 1 5 2 1,growx");
 		age_textField.setColumns(10);
 		
 		JLabel sex_label = new JLabel("                    Sex:");
-		contentPane.add(sex_label, "cell 0 6");
+		sex_label.setForeground(Color.WHITE);
+		sex_label.setFont(new Font("Mongolian Baiti", Font.BOLD, 17));
+		panel.add(sex_label, "cell 0 6");
 		
 		b = new  ButtonGroup();
 		male_rdbtn = new JRadioButton("Male");
-		contentPane.add(male_rdbtn, "flowx,cell 1 6");
+		male_rdbtn.setBackground(new Color(1, 46, 83));
+		male_rdbtn.setFont(new Font("Mongolian Baiti", Font.BOLD, 17));
+		male_rdbtn.setForeground(Color.WHITE);
+		panel.add(male_rdbtn, "flowx,cell 1 6");
 		b.add(male_rdbtn);
 		female_rdbtn = new JRadioButton("Feamle");
-		contentPane.add(female_rdbtn, "cell 1 6");
+		female_rdbtn.setBackground(new Color(1, 46, 83));
+		female_rdbtn.setForeground(Color.WHITE);
+		female_rdbtn.setFont(new Font("Mongolian Baiti", Font.BOLD, 17));
+		panel.add(female_rdbtn, "cell 1 6");
 		b.add(female_rdbtn);
 		
 		JLabel email_label = new JLabel("Email:");
-		contentPane.add(email_label, "cell 0 7,alignx trailing");
+		email_label.setFont(new Font("Mongolian Baiti", Font.BOLD, 17));
+		email_label.setForeground(Color.WHITE);
+		panel.add(email_label, "cell 0 7,alignx trailing");
 		
 		
 		email_textField = new JTextField();
-		contentPane.add(email_textField, "cell 1 7 8 1,growx");
+		email_textField.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
+		email_textField.setBackground(new Color(240, 248, 255));
+		panel.add(email_textField, "cell 1 7 9 1,growx");
 		email_textField.setColumns(10);
 		
 		JLabel phoneno_label = new JLabel("Phone No.:");
-		contentPane.add(phoneno_label, "cell 0 8,alignx trailing");
+		phoneno_label.setForeground(Color.WHITE);
+		phoneno_label.setFont(new Font("Mongolian Baiti", Font.BOLD, 17));
+		panel.add(phoneno_label, "cell 0 8,alignx trailing");
 		
 		phoneno_textField = new JTextField(10);
-		contentPane.add(phoneno_textField, "cell 1 8 8 1,growx");
+		phoneno_textField.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
+		phoneno_textField.setBackground(new Color(240, 248, 255));
+		panel.add(phoneno_textField, "cell 1 8 9 1,growx");
 		phoneno_textField.setColumns(10);
 		
 		JLabel address_label = new JLabel("Address:");
-		contentPane.add(address_label, "cell 0 9,alignx trailing");
+		address_label.setForeground(Color.WHITE);
+		address_label.setFont(new Font("Mongolian Baiti", Font.BOLD, 17));
+		panel.add(address_label, "cell 0 9,alignx trailing");
 		
 		address_textField = new JTextField();
-		contentPane.add(address_textField, "cell 1 9 8 1,growx");
+		address_textField.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
+		address_textField.setBackground(new Color(240, 248, 255));
+		panel.add(address_textField, "cell 1 9 9 1,growx");
 		address_textField.setColumns(10);
 		
 		JLabel city_label = new JLabel("City:");
-		contentPane.add(city_label, "cell 0 10,alignx trailing");
+		city_label.setFont(new Font("Mongolian Baiti", Font.BOLD, 17));
+		city_label.setForeground(Color.WHITE);
+		panel.add(city_label, "cell 0 10,alignx trailing");
 		
 		city_textField = new JTextField();
-		contentPane.add(city_textField, "cell 1 10 2 1,growx");
+		city_textField.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
+		city_textField.setBackground(new Color(240, 248, 255));
+		panel.add(city_textField, "cell 1 10 3 1,growx");
 		city_textField.setColumns(10);
 		
 		JLabel state_label = new JLabel("State:");
-		contentPane.add(state_label, "cell 0 11,alignx trailing");
+		state_label.setForeground(Color.WHITE);
+		state_label.setFont(new Font("Mongolian Baiti", Font.BOLD, 17));
+		panel.add(state_label, "cell 0 11,alignx trailing");
 		
 		state_textField = new JTextField();
-		contentPane.add(state_textField, "cell 1 11 2 1,growx");
+		state_textField.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
+		state_textField.setBackground(new Color(240, 248, 255));
+		panel.add(state_textField, "cell 1 11 3 1,growx");
 		state_textField.setColumns(10);
 		
 		JLabel country_label = new JLabel("Country: ");
-		contentPane.add(country_label, "cell 0 12,alignx trailing");
+		country_label.setFont(new Font("Mongolian Baiti", Font.BOLD, 17));
+		country_label.setForeground(Color.WHITE);
+		panel.add(country_label, "cell 0 12,alignx trailing");
 		
 		country_textField = new JTextField();
-		contentPane.add(country_textField, "cell 1 12 2 1,growx");
+		country_textField.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
+		country_textField.setBackground(new Color(240, 248, 255));
+		panel.add(country_textField, "cell 1 12 3 1,growx");
 		country_textField.setColumns(10);
 		
 		JLabel password_label = new JLabel("Password:");
-		contentPane.add(password_label, "cell 0 13,alignx trailing,aligny baseline");
+		password_label.setForeground(Color.WHITE);
+		password_label.setFont(new Font("Mongolian Baiti", Font.BOLD, 17));
+		panel.add(password_label, "cell 0 13,alignx trailing,aligny baseline");
 		
 		password_textField = new JPasswordField();
-		contentPane.add(password_textField, "cell 1 13 8 1,growx");
+		password_textField.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
+		password_textField.setBackground(new Color(240, 248, 255));
+		panel.add(password_textField, "cell 1 13 9 1,growx");
 		
 		JLabel repeatpassword_label = new JLabel("Repeat Password:");
-		contentPane.add(repeatpassword_label, "cell 0 14,alignx trailing");
+		repeatpassword_label.setForeground(Color.WHITE);
+		repeatpassword_label.setFont(new Font("Mongolian Baiti", Font.BOLD, 17));
+		panel.add(repeatpassword_label, "cell 0 14,alignx trailing");
 		
 		repeatpassword_textField = new JPasswordField();
-		contentPane.add(repeatpassword_textField, "cell 1 14 8 1,growx");
+		repeatpassword_textField.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
+		repeatpassword_textField.setBackground(new Color(240, 248, 255));
+		panel.add(repeatpassword_textField, "cell 1 14 9 1,growx");
 		
 		
 		System.out.println("id vreate"+uid);
 		id_label.setText(uid);
-		register_btn = new JButton("Register");contentPane.add(register_btn, "cell 2 15");
+register_btn = new JButton("Register");
+register_btn.setBackground(new Color(16, 95, 159));
+register_btn.setFont(new Font("Mongolian Baiti", Font.BOLD, 17));
+register_btn.setForeground(Color.WHITE);
+panel.add(register_btn, "cell 1 15 1 2");
 		register_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(register_btn.getText().equals("Register")){
@@ -212,7 +287,11 @@ public class RegistrationForm extends JFrame {
 			}
 		});
 		
-		
+
+		JLabel lblNewLabel1 = new JLabel("a");
+		lblNewLabel1.setIcon(new ImageIcon(RegistrationForm.class.getResource("/images/rgbg.png")));
+		lblNewLabel1.setBounds(0, 0, 626, 645);
+		contentPane.add(lblNewLabel1);
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -280,8 +359,10 @@ public class RegistrationForm extends JFrame {
 					int i = c.insertToUsers(query,uid, uname, uage, usex,uemail, uphone, uaddress, ucity, ustate, ucountry, upassword);
 					c.closeConnection();
 					
-					if(i==1) 
+					if(i==1) {
 						JOptionPane.showMessageDialog(null, "Registered Successfully");
+						rf.dispose();
+					}
 					else	   
 						JOptionPane.showMessageDialog(null, "Problem while Registering");
 				}
@@ -353,12 +434,18 @@ public class RegistrationForm extends JFrame {
 			i = c.insertToUsers(query, edit_id, uname, uage, usex, uemail, uphone, uaddress, ucity, ustate, ucountry, upassword);
 		else
 			JOptionPane.showMessageDialog(null, "Password do not match");
-		if(i==1) 
+		if(i==1) {
 			JOptionPane.showMessageDialog(null, "Updated Successfully");
+			dispose();
+		}
 		else	   
 			JOptionPane.showMessageDialog(null, "Problem while Updating");
 		c.closeConnection();
 		
+	}
+	
+	public void setRegistrationPageReference(RegistrationForm u){
+		rf=u;
 	}
 }
 
