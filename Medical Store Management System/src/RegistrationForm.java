@@ -326,7 +326,7 @@ panel.add(register_btn, "cell 1 15 1 2");
 		String uemail;
 		
 		ConnectionToDB c = new ConnectionToDB();
-		//String uid = c.createNewUserId();
+		String uuid = id_label.getText();
 		
 		
 		if(name_textField.getText().isEmpty()||age_textField.getText().isEmpty()||email_textField.getText().isEmpty()||address_textField.getText().isEmpty()
@@ -358,7 +358,7 @@ panel.add(register_btn, "cell 1 15 1 2");
 			upassword = password_textField.getText();
 			String urepeatpassword =repeatpassword_textField.getText();
 			
-			if(uid==null) 
+			if(uuid==null) 
 				JOptionPane.showMessageDialog(null, "uid null de raha hai");
 			else {
 				
@@ -372,12 +372,12 @@ panel.add(register_btn, "cell 1 15 1 2");
 				String query = "insert into users values(?,?,?,?,?,?,?,?,?,?,?)";
 				if(checkConnection)
 				{
-					int i = c.insertToUsers(query,uid, uname, uage, usex,uemail, uphone, uaddress, ucity, ustate, ucountry, upassword);
+					int i = c.insertToUsers(query,uuid, uname, uage, usex,uemail, uphone, uaddress, ucity, ustate, ucountry, upassword);
 					c.closeConnection();
 					
 					if(i==1) {
 						JOptionPane.showMessageDialog(null, "Registered Successfully");
-						rf.dispose();
+						dispose();
 					}
 					else	   
 						JOptionPane.showMessageDialog(null, "Problem while Registering");

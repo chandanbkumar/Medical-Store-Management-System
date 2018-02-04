@@ -472,13 +472,9 @@ public class AddMedicine extends JFrame {
 		ctb2.makeConnection();
 		ResultSet rs3 = ctb2.queryExecution(query3);
 		try{
-			
 			if(rs3.next()){
 				sold_med= rs3.getInt(1);
-			}
-			
-			
-			
+			}	
 		} 
 		catch (SQLException e) {
 			// TODO Auto-generated catch block

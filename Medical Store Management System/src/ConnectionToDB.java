@@ -228,10 +228,4 @@ public class ConnectionToDB {
 		}
 		return res;	
 	}
-	
-	
-	/*public int insertToMedicinesStock(String med_id, String med_name, String med_type, float med_price,
-			Date med_expdate, int med_avail, int med_pur, String med_desc, String med_desc2) {
-		
-	}*/
 }

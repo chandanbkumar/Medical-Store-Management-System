@@ -42,6 +42,7 @@ public class AdminPage extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
 	public AdminPage() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AdminPage.class.getResource("/images/admic.png")));
 		setResizable(false);

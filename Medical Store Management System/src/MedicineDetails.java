@@ -136,7 +136,8 @@ public class MedicineDetails extends JFrame {
 						int aval=-1;
 						try {
 							r.next();
-							aval = r.getInt(" maval_quantity");
+							aval = r.getInt("maval_quantity");
+							System.out.println(aval+"    aval is this");
 							ct.closeConnection();
 						} 
 						catch (SQLException e) {
