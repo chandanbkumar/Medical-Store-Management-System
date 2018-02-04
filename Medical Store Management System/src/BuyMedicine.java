@@ -129,14 +129,17 @@ public class BuyMedicine extends JFrame {
 		java.sql.Date date = new java.sql.Date(d.getTime());
 		c.insertPurchaseData(date, name.getText(), price.getText(), qty.getText(),u_id);
 		c.closeConnection();
-		JOptionPane.showMessageDialog(null, "You bought this product");
+		JOptionPane.showMessageDialog(null, "You bought "+qty.getText()+" "+name.getText()+" tablets");
 		
 	}
 
 	public void setQty(String name,int qty,double price,String id) {
 		lblMname.setText(name);
 		lblQty.setText(qty+"");
-		lblPrice.setText((price*qty)+"");
+		double pr=price*qty;
+		String p = String.format("%.2f", pr);
+		
+		lblPrice.setText(p);
 		u_id=id;
 	}
 	public void setBuyMedicineReference(BuyMedicine u){

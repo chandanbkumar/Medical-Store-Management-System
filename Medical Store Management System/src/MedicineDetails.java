@@ -130,12 +130,28 @@ public class MedicineDetails extends JFrame {
 					String s =JOptionPane.showInputDialog("Quantity");
 					md.dispose();
 					try{
-					int i = Integer.parseInt(s);
-					BuyMedicine buyMedicine = new BuyMedicine();
-					buyMedicine.setBuyMedicineReference(buyMedicine);
-					buyMedicine.setVisible(true);
-					buyMedicine.setQty(medname,i,price,u_id);
-					}catch(NumberFormatException nfe){
+						int i = Integer.parseInt(s);
+						ConnectionToDB ct = new ConnectionToDB();ct.makeConnection();
+						ResultSet r = ct.queryExecution("Select maval_quantity from medicines_stock where mname='"+medname+"'");
+						int aval=-1;
+						try {
+							r.next();
+							aval = r.getInt(" maval_quantity");
+							ct.closeConnection();
+						} 
+						catch (SQLException e) {
+							e.printStackTrace();
+						}
+						if(aval>=i){
+							BuyMedicine buyMedicine = new BuyMedicine();
+							buyMedicine.setBuyMedicineReference(buyMedicine);
+							buyMedicine.setVisible(true);
+							buyMedicine.setQty(medname,i,price,u_id);
+						}
+						else{
+							JOptionPane.showMessageDialog(null, "quantity exceeded the stock.");}
+						}
+					catch(NumberFormatException nfe){
 						JOptionPane.showMessageDialog(null, "Invalid Quantity");
 					}
 				}

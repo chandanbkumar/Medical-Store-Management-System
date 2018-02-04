@@ -133,6 +133,7 @@ public class AddMedicine extends JFrame {
 		medexp_textField = new JTextField();
 		medexp_textField.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
 		medexp_textField.setBackground(new Color(240, 248, 255));
+		medexp_textField.setText("dd-MM-yyyy");
 		panel.add(medexp_textField, "cell 3 5 3 1,growx");
 		medexp_textField.setColumns(10);
 		
@@ -177,10 +178,23 @@ public class AddMedicine extends JFrame {
 		if(!s.isEmpty()) confirmBtn.setText("UPDATE");}
 		confirmBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(confirmBtn.getText().equals("ADD"))
-					insertMedicine();
-				else if(confirmBtn.getText().equals("UPDATE"))
-					updateMedicine(lblM.getText());
+				if(confirmBtn.getText().equals("ADD")){
+					
+					if(medname_textField.getText().isEmpty() || medtype_textField.getText().isEmpty() || medprice_textField.getText().isEmpty() || 
+							medexp_textField.getText().isEmpty() || medavail_textField.getText().isEmpty() || meddesc_textField.getText().isEmpty()){
+						JOptionPane.showMessageDialog(null, "Please fill all the fields");
+					}
+					else 
+						insertMedicine();
+				}
+				else if(confirmBtn.getText().equals("UPDATE")){
+					if(medname_textField.getText().isEmpty() || medtype_textField.getText().isEmpty() || medprice_textField.getText().isEmpty() || 
+							medexp_textField.getText().isEmpty() || medavail_textField.getText().isEmpty() || meddesc_textField.getText().isEmpty()){
+						JOptionPane.showMessageDialog(null, "Please fill all the fields");
+					}
+					else
+						updateMedicine(lblM.getText());
+				}
 			}
 		});
 		
@@ -199,6 +213,8 @@ public class AddMedicine extends JFrame {
 		String med_id,med_name,med_type,med_expiry,med_desc,med_stock="yes";
 		float med_price;
 		int med_avail,med_pur;java.sql.Date med_expdate;
+		
+		try{
 		med_id=id;
 		med_name=medname_textField.getText();
 		med_type=medtype_textField.getText();
@@ -213,19 +229,28 @@ public class AddMedicine extends JFrame {
 			sd = sdf.parse(med_expiry);
 			med_expdate = new java.sql.Date(sd.getTime());
 		} catch (ParseException e) {
+			JOptionPane.showMessageDialog(null, "invalid date or date is in not proper format");
 			e.printStackTrace();
 			return;
 		}
 		
-		String query="update medicines_stock set m_id='"+med_id+"' , mname='"+med_name+"' , mtype='"+med_type+"' , mprice="
+		if(med_avail>med_pur){JOptionPane.showMessageDialog(null, "Available Quantity can not be greater than purchased quantity");return;}
+
+			String query="update medicines_stock set m_id='"+med_id+"' , mname='"+med_name+"' , mtype='"+med_type+"' , mprice="
 					+med_price+" , mexpiry_date=TO_DATE('"+med_expdate+"' , 'YYYY-MM-DD') , maval_quantity="+med_avail+" ,mpurchase_quantity="+med_pur+" ,mdescription='"
 					+med_desc+"' , available='yes' where m_id='"+med_id+"'";
 		ConnectionToDB ctb = new ConnectionToDB();
 		ctb.makeConnection();
 		int i = ctb.queryUpdation(query);
-		if(i==1) {JOptionPane.showMessageDialog(null, "Updated Successfully");dispose();}
+		if(i==1) {JOptionPane.showMessageDialog(null, "Updated Successfully");}
 		else 
-			{JOptionPane.showMessageDialog(null, "Error Updating");dispose();}
+			{JOptionPane.showMessageDialog(null, "Error Updating");}
+		}catch(NumberFormatException nfe){
+			JOptionPane.showMessageDialog(null, "Invalid Types entered");
+		}
+		
+		dispose();
+		
 	}
 
 
@@ -240,8 +265,10 @@ public class AddMedicine extends JFrame {
 		float med_price;
 		int med_avail,med_pur;java.sql.Date med_expdate;
 		med_id=lblM.getText();
+		try{
 		med_name=medname_textField.getText();
 		med_type=medtype_textField.getText();
+		
 		med_price=Float.parseFloat(medprice_textField.getText());
 		med_expiry=medexp_textField.getText();
 		med_avail=Integer.parseInt(medavail_textField.getText());
@@ -253,9 +280,11 @@ public class AddMedicine extends JFrame {
 			sd = sdf.parse(med_expiry);
 			med_expdate = new java.sql.Date(sd.getTime());
 		} catch (ParseException e) {
+			JOptionPane.showMessageDialog(null, "invalid date or date is in not proper format");
 			e.printStackTrace();
 			return;
 		}
+		if(med_avail>med_pur){JOptionPane.showMessageDialog(null, "Available Quantity can not be greater than purchased quantity");return;}
 		ConnectionToDB ctb = new ConnectionToDB();
 		ctb.makeConnection();/**INSERTING TO MEDICINE DATABASE---------change date from string to sql date**/
 		int res =ctb.insertToMedicinesStock(med_id, med_name, med_type, med_price, med_expdate, med_avail, med_pur, med_desc, med_stock);
@@ -266,7 +295,11 @@ public class AddMedicine extends JFrame {
 			JOptionPane.showMessageDialog(null, "Problem While Adding");
 		
 		ctb.closeConnection();
-
+}catch(NumberFormatException nfe){
+			JOptionPane.showMessageDialog(null, "Invalid Types entered");
+		}
+		
+		dispose();
 	}
 	
 	

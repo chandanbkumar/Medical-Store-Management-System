@@ -99,7 +99,12 @@ private JLabel lblName;
 		textField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent arg0) {
-				String search=textField.getText().trim();
+				
+			}
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				String search=textField.getText();
+				System.out.println("in listener "+" searched = "+search);
 				showSearchResults(flag,search);
 			}
 		});
@@ -134,6 +139,7 @@ private JLabel lblName;
 		System.out.println("Enterer showaresults with flag="+j+" searched = "+search);
 		if(j==1){
 			String query = "Select u_id,uname,uage,ugender,uemail,uphone,uaddress,ucity,ustate,ucountry from users where uname like '"+search+"%'";
+			System.out.println("searched query   "+query);
 			ConnectionToDB c = new ConnectionToDB();
 			c.makeConnection();
 			ResultSet rs = c.queryExecution(query);
@@ -142,6 +148,7 @@ private JLabel lblName;
 		}
 		else if(j==2){
 			String query = "Select * from  medicines_stock where mname like '"+search+"%'";
+			System.out.println("searched query   "+query);
 			ConnectionToDB c = new ConnectionToDB();
 			c.makeConnection();
 			ResultSet rs = c.queryExecution(query);
