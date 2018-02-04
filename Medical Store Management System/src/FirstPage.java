@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Component;
 import java.awt.Font;
@@ -146,9 +147,9 @@ public class FirstPage {
 			}
 			@Override
 			public void mouseReleased(MouseEvent e)  {
-				RegistrationForm r = new RegistrationForm();
-				r.setRegistrationPageReference(r);
-				r.setVisible(true);
+				ConnectionToDB c = new ConnectionToDB();
+				String uid =c.createNewUserId(1);
+				 new RegistrationForm(uid,1);
 			}
 		});
 		label_register.setHorizontalAlignment(SwingConstants.CENTER);
@@ -166,12 +167,18 @@ public class FirstPage {
 		about_btn.setBackground(new Color(255, 255, 204));
 		about_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(frmMedicalStoreManagement, "This is a simple Medical Store Management System Application.");
 			}
 		});
 		b_panel.setLayout(null);
 		b_panel.add(about_btn);
 		
 		JButton exit_btn = new JButton("EXIT");
+		exit_btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmMedicalStoreManagement.dispose();
+			}
+		});
 		exit_btn.setBounds(463, 23, 152, 50);
 		exit_btn.setBackground(new Color(255, 255, 204));
 		exit_btn.setFont(new Font("Sitka Heading", Font.PLAIN, 28));

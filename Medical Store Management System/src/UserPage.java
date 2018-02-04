@@ -135,7 +135,7 @@ public class UserPage extends JFrame {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//editProfile();
-				RegistrationForm r =new RegistrationForm(useridlabbel.getText());
+				RegistrationForm r =new RegistrationForm(useridlabbel.getText(),0);
 				r.setRegistrationPageReference(r);
 			}
 		});

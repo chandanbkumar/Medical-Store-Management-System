@@ -16,11 +16,13 @@ import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Toolkit;
+import java.awt.Color;
+import java.awt.Font;
 
 public class AdminPage extends JFrame {
 
 	private JPanel contentPane;
-
+	int flag;
 	/**
 	 * Launch the application.
 	 */
@@ -120,7 +122,10 @@ public class AdminPage extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
+				String text = new ConnectionToDB().createNewUserId(3);
+				 
 				AddMedicine ad = new AddMedicine("");
+				ad.lblM.setText(text);
 				ad.setVisible(true);
 			}
 		});
@@ -172,8 +177,7 @@ public class AdminPage extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				String id = JOptionPane.showInputDialog("Enter Medicine ID");
 				MedicineDetails md = new MedicineDetails(id);
-				md.setVisible(true);
-				
+				md.setVisible(true);	
 			}
 		});
 		removemed.setHorizontalAlignment(SwingConstants.CENTER);
@@ -265,6 +269,18 @@ public class AdminPage extends JFrame {
 		totalpurchase.setHorizontalAlignment(SwingConstants.CENTER);
 		totalpurchase.setIcon(new ImageIcon(AdminPage.class.getResource("/images/totalpurchase.png")));
 		panel.add(totalpurchase);
+		
+		JButton btnLogout = new JButton("LOGOUT");
+		btnLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
+		btnLogout.setForeground(Color.WHITE);
+		btnLogout.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
+		btnLogout.setBackground(new Color(0, 102, 255));
+		btnLogout.setBounds(650, 0, 136, 31);
+		contentPane.add(btnLogout);
 	}
 	
 	

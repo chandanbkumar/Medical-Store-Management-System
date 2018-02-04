@@ -48,7 +48,7 @@ public class RegistrationForm extends JFrame {
 	private JRadioButton female_rdbtn;
 	String uid;
 	RegistrationForm rf;
-	JLabel id_label; String edit_id;
+	JLabel id_label; String edit_id="";
 	JButton register_btn;
 
 	/**
@@ -68,17 +68,36 @@ public class RegistrationForm extends JFrame {
 	}
 	*/
 	
-	public RegistrationForm(String u_id){
+	public RegistrationForm(String u_id,int i){
 		System.out.println("edit id is"+u_id);
+		if(i==1){
+			
+			RegistrationForm r = new RegistrationForm();
+			r.setUserId(u_id);
+			r.setVisible(true);
+		}
+		else{
 		edit_id=u_id;
-		RegistrationForm r = (new RegistrationForm());
+		RegistrationForm r = new RegistrationForm();
 		r.setVisible(true);
 		r.editProfile(u_id);
+		
+		}
+		
 	}
 	
 	
+	private void setUserId(String u_id) {
+		System.out.println("id in method created "+uid);
+
+		id_label.setText(u_id);
+		
+	}
+
+
 	/**
 	 * Create the frame.
+	 * @wbp.parser.constructor
 	 */
 	public RegistrationForm() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistrationForm.class.getResource("/images/regic.png")));
@@ -107,9 +126,6 @@ public class RegistrationForm extends JFrame {
 		panel.setLayout(new MigLayout("", "[][][][][][][][][][][][][]", "[][][][][][][][][][][][][][][][][]"));
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Registration Form", TitledBorder.LEADING, TitledBorder.TOP, null, Color.WHITE));
 		
-		ConnectionToDB c = new ConnectionToDB();
-		uid =c.createNewUserId(1);
-		
 		JLabel userid_label = new JLabel("User Id:");
 		userid_label.setForeground(new Color(0, 204, 204));
 		userid_label.setFont(new Font("Mongolian Baiti", Font.BOLD, 20));
@@ -121,6 +137,7 @@ public class RegistrationForm extends JFrame {
 		id_label.setHorizontalTextPosition(SwingConstants.CENTER);
 		id_label.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(id_label, "cell 1 1 7 1");
+	
 		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(RegistrationForm.class.getResource("/images/Userreg.png")));
@@ -262,8 +279,7 @@ public class RegistrationForm extends JFrame {
 		panel.add(repeatpassword_textField, "cell 1 14 9 1,growx");
 		
 		
-		System.out.println("id vreate"+uid);
-		id_label.setText(uid);
+		
 register_btn = new JButton("Register");
 register_btn.setBackground(new Color(16, 95, 159));
 register_btn.setFont(new Font("Mongolian Baiti", Font.BOLD, 17));

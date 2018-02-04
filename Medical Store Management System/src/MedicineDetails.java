@@ -116,14 +116,15 @@ public class MedicineDetails extends JFrame {
 		btnBuy.setForeground(Color.WHITE);
 		btnBuy.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
 		if(s!=null){
-			if(!s.equals(""))/**id getting empty....think of other way to delete medicine...may implemention listner from other java file**/
-				btnBuy.setText("CONFIRM TO DELETE");
+			if(!s.equals(""))
+				btnBuy.setText("DELETE");
 		}
 		btnBuy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(btnBuy.getText().equals("CONFIRM TO DELETE")){
+				if(btnBuy.getText().equals("DELETE")){
 					System.out.println(med_id+"       passed id");
 					new AddMedicine("").deleteMedicine(s);
+					dispose();
 				}
 				else{
 					String s =JOptionPane.showInputDialog("Quantity");
@@ -200,12 +201,12 @@ public class MedicineDetails extends JFrame {
 				String price = String.format("%.2f", pr);
 				String stock = rs.getString("AVAILABLE");
 				java.util.Date sdate = rs.getDate("MEXPIRY_DATE");
-				String date = new SimpleDateFormat().format(sdate);
+				String date = new SimpleDateFormat("dd-MM-yyyy").format(sdate);
 				String desc = rs.getString("MDESCRIPTION");
 				setLabels(name,type,price,date,desc,stock,"");
 				
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(null, "Medicine with given id is not present in the stock");
 				e.printStackTrace();
 			}
 		}

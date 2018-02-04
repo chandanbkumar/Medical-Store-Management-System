@@ -89,8 +89,7 @@ public class AddMedicine extends JFrame {
 		 lblM = new JLabel("m10002");
 		 lblM.setForeground(Color.LIGHT_GRAY);
 		 lblM.setFont(new Font("Mongolian Baiti", Font.BOLD, 17));
-		 String text = new ConnectionToDB().createNewUserId(3);
-		 lblM.setText(text);
+		 
 		panel.add(lblM, "cell 3 0 2 1");
 		
 		JLabel lblMedicineName = new JLabel("Medicine Name:");
@@ -208,7 +207,7 @@ public class AddMedicine extends JFrame {
 		med_avail=Integer.parseInt(medavail_textField.getText());
 		med_pur=Integer.parseInt(medpur_textField.getText());
 		med_desc=meddesc_textField.getText();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		java.util.Date sd;
 		try {
 			sd = sdf.parse(med_expiry);
@@ -224,16 +223,19 @@ public class AddMedicine extends JFrame {
 		ConnectionToDB ctb = new ConnectionToDB();
 		ctb.makeConnection();
 		int i = ctb.queryUpdation(query);
-		JOptionPane.showMessageDialog(null, "Updated "+i+" entries");
-		
+		if(i==1) {JOptionPane.showMessageDialog(null, "Updated Successfully");dispose();}
+		else 
+			{JOptionPane.showMessageDialog(null, "Error Updating");dispose();}
 	}
 
 
 
 
+	
 
 
 	public void insertMedicine(){
+		
 		String med_id,med_name,med_type,med_expiry,med_desc,med_stock="yes";
 		float med_price;
 		int med_avail,med_pur;java.sql.Date med_expdate;
@@ -245,7 +247,7 @@ public class AddMedicine extends JFrame {
 		med_avail=Integer.parseInt(medavail_textField.getText());
 		med_pur=Integer.parseInt(medpur_textField.getText());
 		med_desc=meddesc_textField.getText();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		java.util.Date sd;
 		try {
 			sd = sdf.parse(med_expiry);
@@ -279,14 +281,18 @@ public class AddMedicine extends JFrame {
 				medname_textField.setText(rs.getString(2));
 				medtype_textField.setText(rs.getString(3));
 				medprice_textField.setText(rs.getFloat(4)+"");
-				medexp_textField.setText(rs.getDate(5)+"");
+				String date;
+				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+				date = sdf.format(rs.getDate(5));
+				medexp_textField.setText(date);
 				medavail_textField.setText(rs.getInt(6)+"");
 				medpur_textField.setText(rs.getInt(7)+"");
 				meddesc_textField.setText(rs.getString(8));
 				
 				
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(null, "Medicine with given id is not present in the stock");
+				dispose();
 				e.printStackTrace();
 			}
 		}
@@ -454,7 +460,7 @@ public class AddMedicine extends JFrame {
 		try {
 			
 			if(rs4.next()){
-				aval_tot=rs1.getInt(1);
+				aval_tot=rs4.getInt(1);
 			}
 		}catch (SQLException e) {
 				e.printStackTrace();
