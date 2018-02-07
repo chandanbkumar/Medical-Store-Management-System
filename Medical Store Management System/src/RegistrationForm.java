@@ -3,7 +3,9 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.BorderFactory;
@@ -29,6 +31,10 @@ import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class RegistrationForm extends JFrame {
 
@@ -54,11 +60,11 @@ public class RegistrationForm extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					frame = new RegistrationForm();
+					RegistrationForm frame = new RegistrationForm();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -66,8 +72,7 @@ public class RegistrationForm extends JFrame {
 			}
 		});
 	}
-	*/
-	
+		
 	public RegistrationForm(String u_id,int i){
 		System.out.println("edit id is"+u_id);
 		if(i==1){
@@ -155,6 +160,16 @@ public class RegistrationForm extends JFrame {
 		panel.add(name_label, "cell 0 4,alignx trailing");
 		
 		name_textField = new JTextField();
+		name_textField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				name_textField.setBorder(new MatteBorder(3, 3, 3, 3, (Color) Color.green));
+			}
+			@Override
+			public void focusLost(FocusEvent e) {
+				name_textField.setBorder(new EmptyBorder(1, 1, 1, 1));
+			}
+		});
 		name_textField.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
 		name_textField.setBackground(new Color(240, 248, 255));
 		panel.add(name_textField, "cell 1 4 9 1,growx,aligny center");
@@ -167,6 +182,16 @@ public class RegistrationForm extends JFrame {
 		panel.add(age_label, "cell 0 5,alignx trailing");
 		
 		age_textField = new JTextField();
+		age_textField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				age_textField.setBorder(new MatteBorder(3, 3, 3, 3, (Color) Color.green));
+			}
+			@Override
+			public void focusLost(FocusEvent e) {
+				age_textField.setBorder(new EmptyBorder(1, 1, 1, 1));
+			}
+		});
 		age_textField.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
 		age_textField.setBackground(new Color(240, 248, 255));
 		panel.add(age_textField, "cell 1 5 2 1,growx");
@@ -198,6 +223,16 @@ public class RegistrationForm extends JFrame {
 		
 		
 		email_textField = new JTextField();
+		email_textField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				email_textField.setBorder(new MatteBorder(3, 3, 3, 3, (Color) Color.green));
+			}
+			@Override
+			public void focusLost(FocusEvent e) {
+				email_textField.setBorder(new EmptyBorder(1,1,1,1));
+			}
+		});
 		email_textField.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
 		email_textField.setBackground(new Color(240, 248, 255));
 		panel.add(email_textField, "cell 1 7 9 1,growx");
@@ -209,6 +244,16 @@ public class RegistrationForm extends JFrame {
 		panel.add(phoneno_label, "cell 0 8,alignx trailing");
 		
 		phoneno_textField = new JTextField(10);
+		phoneno_textField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				phoneno_textField.setBorder(new MatteBorder(3, 3, 3, 3, (Color) Color.green));
+			}
+			@Override
+			public void focusLost(FocusEvent e) {
+				phoneno_textField.setBorder(new EmptyBorder(1, 1, 1, 1));
+			}
+		});
 		phoneno_textField.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
 		phoneno_textField.setBackground(new Color(240, 248, 255));
 		panel.add(phoneno_textField, "cell 1 8 9 1,growx");
@@ -220,6 +265,16 @@ public class RegistrationForm extends JFrame {
 		panel.add(address_label, "cell 0 9,alignx trailing");
 		
 		address_textField = new JTextField();
+		address_textField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				address_textField.setBorder(new MatteBorder(3,3,3,3, (Color) Color.green));
+			}
+			@Override
+			public void focusLost(FocusEvent e) {
+				address_textField.setBorder(new EmptyBorder(1, 1, 1, 1));
+			}
+		});
 		address_textField.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
 		address_textField.setBackground(new Color(240, 248, 255));
 		panel.add(address_textField, "cell 1 9 9 1,growx");
@@ -231,6 +286,16 @@ public class RegistrationForm extends JFrame {
 		panel.add(city_label, "cell 0 10,alignx trailing");
 		
 		city_textField = new JTextField();
+		city_textField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				city_textField.setBorder(new MatteBorder(3,3,3,3, (Color) Color.green));
+			}
+			@Override
+			public void focusLost(FocusEvent e) {
+				city_textField.setBorder(new EmptyBorder(1, 1, 1, 1));
+			}
+		});
 		city_textField.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
 		city_textField.setBackground(new Color(240, 248, 255));
 		panel.add(city_textField, "cell 1 10 3 1,growx");
@@ -242,6 +307,16 @@ public class RegistrationForm extends JFrame {
 		panel.add(state_label, "cell 0 11,alignx trailing");
 		
 		state_textField = new JTextField();
+		state_textField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				state_textField.setBorder(new MatteBorder(3,3,3,3, (Color) Color.green));
+			}
+			@Override
+			public void focusLost(FocusEvent e) {
+				state_textField.setBorder(new EmptyBorder(1, 1, 1, 1));
+			}
+		});
 		state_textField.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
 		state_textField.setBackground(new Color(240, 248, 255));
 		panel.add(state_textField, "cell 1 11 3 1,growx");
@@ -253,6 +328,16 @@ public class RegistrationForm extends JFrame {
 		panel.add(country_label, "cell 0 12,alignx trailing");
 		
 		country_textField = new JTextField();
+		country_textField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				country_textField.setBorder(new MatteBorder(3,3,3,3, (Color) Color.green));
+			}
+			@Override
+			public void focusLost(FocusEvent e) {
+				country_textField.setBorder(new EmptyBorder(1, 1, 1, 1));
+			}
+		});
 		country_textField.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
 		country_textField.setBackground(new Color(240, 248, 255));
 		panel.add(country_textField, "cell 1 12 3 1,growx");
@@ -264,6 +349,16 @@ public class RegistrationForm extends JFrame {
 		panel.add(password_label, "cell 0 13,alignx trailing,aligny baseline");
 		
 		password_textField = new JPasswordField();
+		password_textField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				password_textField.setBorder(new MatteBorder(3, 3, 3, 3, (Color) Color.green));
+			}
+			@Override
+			public void focusLost(FocusEvent e) {
+				password_textField.setBorder(new EmptyBorder(1, 1, 1, 1));
+			}
+		});
 		password_textField.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
 		password_textField.setBackground(new Color(240, 248, 255));
 		panel.add(password_textField, "cell 1 13 9 1,growx");
@@ -274,22 +369,70 @@ public class RegistrationForm extends JFrame {
 		panel.add(repeatpassword_label, "cell 0 14,alignx trailing");
 		
 		repeatpassword_textField = new JPasswordField();
+		repeatpassword_textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				if(password_textField.getPassword().toString().isEmpty()){}
+				if(repeatpassword_textField.getText().equals(password_textField.getText())){
+					repeatpassword_textField.setBorder(new MatteBorder(3,3, 3, 3, (Color) Color.green));
+				}
+			}
+		});
+		
+		
+		repeatpassword_textField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				if(password_textField.getText().toString().isEmpty()){}
+				if(repeatpassword_textField.getText().equals(password_textField.getText())){
+					repeatpassword_textField.setBorder(new MatteBorder(3,3, 3, 3, (Color) Color.green));
+				}
+				else 				repeatpassword_textField.setBorder(new MatteBorder(3, 3,3, 3, (Color) Color.red));
+		}
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+				repeatpassword_textField.setBorder(new EmptyBorder(1, 1, 1, 1));
+				
+				/**if(!(name_textField.getText().isEmpty()||age_textField.getText().isEmpty()||
+						email_textField.getText().isEmpty()||address_textField.getText().isEmpty()||
+						country_textField.getText().isEmpty()||city_textField.getText().isEmpty()||
+						state_textField.getText().isEmpty()||password_textField.getText().isEmpty()||
+						repeatpassword_textField.getText().isEmpty()||
+						(!male_rdbtn.isSelected()&&!female_rdbtn.isSelected())||
+						phoneno_textField.getText().isEmpty())) {
+					try{
+						int a = Integer.parseInt(age_textField.getText());
+					}catch(NumberFormatException nfe){
+						age_textField.setBorder(new MatteBorder(3,3,3,3,Color.red));
+					}
+					try{
+					int b= Integer.parseInt(phoneno_textField.getText());
+					}catch(NumberFormatException nfe){
+						phoneno_textField.setBorder(new MatteBorder(3,3,3,3,Color.red));
+					}
+					register_btn.setEnabled(true);**/
+				}
+		});
 		repeatpassword_textField.setFont(new Font("Mongolian Baiti", Font.PLAIN, 17));
 		repeatpassword_textField.setBackground(new Color(240, 248, 255));
 		panel.add(repeatpassword_textField, "cell 1 14 9 1,growx");
 		
 		
 		
-register_btn = new JButton("Register");
-register_btn.setBackground(new Color(16, 95, 159));
-register_btn.setFont(new Font("Mongolian Baiti", Font.BOLD, 17));
-register_btn.setForeground(Color.WHITE);
-panel.add(register_btn, "cell 1 15 1 2");
+		register_btn = new JButton("Register");
+	//	register_btn.setEnabled(false);
+		register_btn.setBackground(new Color(16, 95, 159));
+		register_btn.setFont(new Font("Mongolian Baiti", Font.BOLD, 17));
+		register_btn.setForeground(Color.WHITE);
+		panel.add(register_btn, "cell 1 15 1 2");
 		register_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(register_btn.getText().equals("Register")){
 					try{
+						if(validateForm()){
 						InsertToDB(e);
+						}
 						//frame.dispose();
 					}
 					catch (Exception i) {
@@ -310,6 +453,51 @@ panel.add(register_btn, "cell 1 15 1 2");
 		contentPane.add(lblNewLabel1);
 	}
 	
+	
+	public boolean validateForm(){
+		if((name_textField.getText().isEmpty()||age_textField.getText().isEmpty()||
+				email_textField.getText().isEmpty()||address_textField.getText().isEmpty()||
+				country_textField.getText().isEmpty()||city_textField.getText().isEmpty()||
+				state_textField.getText().isEmpty()||password_textField.getText().isEmpty()||
+				repeatpassword_textField.getText().isEmpty()||
+				(!male_rdbtn.isSelected()&&!female_rdbtn.isSelected())||
+				phoneno_textField.getText().isEmpty())) {
+			JOptionPane.showMessageDialog(null,"Please fill all the fields");
+			return false;
+		}
+		
+		
+		
+		
+		else
+		{
+			try{
+				int age=Integer.parseInt(age_textField.getText());
+				if(age>=100||age<15)
+				{	
+					age_textField.setBorder(new MatteBorder(3,3,3,3,Color.red));
+					age_textField.setToolTipText("Age can not be less than 15 or negative or more than 100");
+					return false;
+				}
+				
+			}catch(NumberFormatException nfe){
+				age_textField.setBorder(new MatteBorder(3,3,3,3,Color.red));return false;
+			}
+			try{
+				//  p = Integer.parseInt(phoneno_textField.getText());
+				if(phoneno_textField.getText().length()!=10){
+					phoneno_textField.setBorder(new MatteBorder(3,3,3,3,Color.red));
+					phoneno_textField.setToolTipText("Phone number should be of 10 digits");
+					return false;
+				}
+			}catch(NumberFormatException nfe){
+				phoneno_textField.setBorder(new MatteBorder(3,3,3,3,Color.red));return false;
+			}
+		}
+		return true;
+	}
+	
+	
 	@SuppressWarnings("deprecation")
 	public void InsertToDB(ActionEvent regform) {
 		
@@ -327,21 +515,9 @@ panel.add(register_btn, "cell 1 15 1 2");
 		
 		ConnectionToDB c = new ConnectionToDB();
 		String uuid = id_label.getText();
-		
-		
-		if(name_textField.getText().isEmpty()||age_textField.getText().isEmpty()||email_textField.getText().isEmpty()||address_textField.getText().isEmpty()
-				||country_textField.getText().isEmpty()||city_textField.getText().isEmpty()||state_textField.getText().isEmpty()||password_textField.getText().isEmpty()
-					||repeatpassword_textField.getText().isEmpty()||(!male_rdbtn.isSelected()&&!female_rdbtn.isSelected())||phoneno_textField.getText().isEmpty())
-		{	
-			
-			JOptionPane.showMessageDialog(null, "Please Fill All the Fields");
-
-		}
-		
-		else
-		{
-			
-			uname=name_textField.getText();
+	
+			System.out.println("success");
+		uname=name_textField.getText();
 			uage=Integer.parseInt(age_textField.getText());
 			
 			if(male_rdbtn.isSelected())
@@ -391,7 +567,7 @@ panel.add(register_btn, "cell 1 15 1 2");
 			else
 				JOptionPane.showMessageDialog(null, "Password Do not Match");
 		}
-	}
+	
 		
 
 

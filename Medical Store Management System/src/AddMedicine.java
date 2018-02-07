@@ -404,7 +404,6 @@ public class AddMedicine extends JFrame {
 				puchase_qty=rs1.getInt(1);
 			}
 		}catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		ctb.closeConnection();
@@ -417,7 +416,6 @@ public class AddMedicine extends JFrame {
 				puchase_price=rs2.getDouble(1);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		ctbc.closeConnection();
